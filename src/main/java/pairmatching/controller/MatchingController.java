@@ -74,8 +74,10 @@ public class MatchingController {
             List<String> clm = inputView.getCourseLevelMission();
             CourseLevelMission newCLM = CourseLevelMission.from(clm.get(0), clm.get(1), clm.get(2));
             match(functionType, newCLM);
+            return;
         }
-        // 처음 매칭 or 재매칭 -> 매칭하고 return
+        CLM.match(crews); // 처음 매칭 or 재매칭 -> 매칭하고 return
+        outputView.printMatchingResult(CLM.getMissionMatching()); // 출력
     }
 
     private boolean rematch() {

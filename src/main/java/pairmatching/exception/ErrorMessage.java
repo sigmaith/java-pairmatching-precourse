@@ -7,7 +7,8 @@ public enum ErrorMessage {
     UNVALID_LEVEL_NAME("존재하지 않는 레벨 이름"),
     UNVALID_MISSION_NAME("존재하지 않는 미션 이름"),
     EMPTY_MATCHING_HISTORY("매칭 이력이 없습니다."),
-    UNVALID_ANSWER_INPUT("네 혹은 아니오 로 대답해주세요");
+    UNVALID_ANSWER_INPUT("네 혹은 아니오 로 대답해주세요"),
+    UNVALID_CREW_NAME("유효하지 않은 크루");
     private final String message;
 
     ErrorMessage(final String message) {

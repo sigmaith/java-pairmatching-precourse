@@ -20,6 +20,14 @@ public class Crew {
         return name;
     }
 
+    public boolean isIn(Course course) {
+        return this.course.equals(course);
+    }
+
+    public boolean has(String name) {
+        return this.name.equals(name);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
