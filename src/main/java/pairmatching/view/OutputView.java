@@ -23,7 +23,7 @@ public class OutputView {
                         .append(level.getMissions().stream().map(MissionMatching::getMissionName).collect(
                                 Collectors.joining(" | "))).append("\n"));
         System.out.print(sb);
-        System.out.println(SUFFIX);
+        System.out.print(SUFFIX);
     }
 
     public void printMatchingResult(MissionMatching missionMatching) {

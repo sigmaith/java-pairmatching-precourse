@@ -3,6 +3,7 @@ package pairmatching.controller;
 import static pairmatching.controller.ConfigController.configCrews;
 
 import java.util.List;
+import java.util.function.Supplier;
 import pairmatching.domain.CourseLevelMission;
 import pairmatching.domain.Crews;
 import pairmatching.domain.constants.Level;
@@ -24,7 +25,7 @@ public class MatchingController {
 
     public void run() {
         while (true) {
-            String functionType = inputView.getFunctionType();
+            String functionType = retry(inputView::getFunctionType);
             if (functionType.equals("Q")) {
                 break;
             }
@@ -38,14 +39,21 @@ public class MatchingController {
 
     private void matchOrSelect(String functionType) {
         try {
-            outputView.printCourseLevelMission(); // TODO: 이거 제대로 출력하기
-            List<String> clm = inputView.getCourseLevelMission();
-            CourseLevelMission CLM = CourseLevelMission.from(clm.get(0), clm.get(1), clm.get(2));
+            outputView.printCourseLevelMission();
+            CourseLevelMission CLM = getCourseLevelMission();
             match(functionType, CLM);
             select(functionType, CLM);
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private CourseLevelMission getCourseLevelMission() {
+        return retry(() -> {
+            List<String> clm = inputView.getCourseLevelMission();
+            CourseLevelMission CLM = CourseLevelMission.from(clm.get(0), clm.get(1), clm.get(2));
+            return CLM;
+        });
     }
 
     public void select(String functionType, CourseLevelMission CLM) {  // 조회
@@ -71,8 +79,7 @@ public class MatchingController {
             return;
         }
         if (!CLM.isMissionEmptyMatching() && !rematch()) { // 이전 매칭 기록 존재 no-> 다시 input
-            List<String> clm = inputView.getCourseLevelMission();
-            CourseLevelMission newCLM = CourseLevelMission.from(clm.get(0), clm.get(1), clm.get(2));
+            CourseLevelMission newCLM = getCourseLevelMission();
             match(functionType, newCLM);
             return;
         }
@@ -83,5 +90,15 @@ public class MatchingController {
     private boolean rematch() {
         String input = inputView.getRematch();
         return input.equals("네");
+    }
+
+    private static <T> T retry(Supplier<T> supplier) {
+        while (true) {
+            try {
+                return supplier.get();
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }
 }
