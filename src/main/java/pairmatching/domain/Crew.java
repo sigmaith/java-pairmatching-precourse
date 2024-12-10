@@ -16,13 +16,19 @@ public class Crew {
         this.name = name;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public boolean equals(Object o) {
-        if (this == o)
+        if (this == o) {
             return true;
-        if (!(o instanceof Crew))
+        }
+        if (!(o instanceof Crew)) {
             return false;
-        Crew crew = (Crew)o;
+        }
+        Crew crew = (Crew) o;
         return course == crew.course &&
                 Objects.equals(name, crew.name);
     }

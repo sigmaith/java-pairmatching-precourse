@@ -24,4 +24,12 @@ public class CourseLevelMission {
                 .orElseThrow(() -> CustomException.from(
                         ErrorMessage.UNVALID_MISSION_NAME));
     }
+
+    public boolean isMissionEmptyMatching() {
+        return mission.isEmptyMatching();
+    }
+
+    public MissionMatching getMissionMatching() {
+        return mission;
+    }
 }

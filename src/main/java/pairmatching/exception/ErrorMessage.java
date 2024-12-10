@@ -5,7 +5,8 @@ public enum ErrorMessage {
     UNVALID_FUNCTION_TYPE("기능 종류는 1,2,3,Q 중 하나로 입력하세요."),
     UNVALID_COURSE_NAME("존재하지 않는 코스 이름"),
     UNVALID_LEVEL_NAME("존재하지 않는 레벨 이름"),
-    UNVALID_MISSION_NAME("존재하지 않는 미션 이름");
+    UNVALID_MISSION_NAME("존재하지 않는 미션 이름"),
+    EMPTY_MATCHING_HISTORY("매칭 이력이 없습니다.");
     private final String message;
 
     ErrorMessage(final String message) {
