@@ -3,6 +3,8 @@ package pairmatching.domain.constants;
 import java.util.Arrays;
 import java.util.List;
 import pairmatching.domain.MissionMatching;
+import pairmatching.exception.CustomException;
+import pairmatching.exception.ErrorMessage;
 
 public enum Level {
     LEVEL1("레벨1", Arrays.asList(MissionMatching.of("자동차경주"), MissionMatching.of("로또"), MissionMatching.of("숫자야구게임"))),
@@ -19,6 +21,14 @@ public enum Level {
         this.missions = missions;
     }
 
-    // 추가 기능 구현
+    public static Level getLevelBy(String name) {
+        return Arrays.stream(values()).filter(level -> level.name.equals(name)).findFirst()
+                .orElseThrow(() -> CustomException.from(
+                        ErrorMessage.UNVALID_LEVEL_NAME));
+    }
+
+    public List<MissionMatching> getMissions() {
+        return missions;
+    }
 }
 

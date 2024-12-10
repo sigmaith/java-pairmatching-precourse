@@ -30,7 +30,7 @@ public class ConfigController {
             }
             return backendCrews;
         } catch (IOException e) {
-            throw CustomException.from(ErrorMessage.FILE_IO_EXCEPTION);
+            throw CustomException.from(ErrorMessage.FILE_IO);
         }
     }
 
@@ -43,7 +43,7 @@ public class ConfigController {
             }
             return frontendCrews;
         } catch (IOException e) {
-            throw CustomException.from(ErrorMessage.FILE_IO_EXCEPTION);
+            throw CustomException.from(ErrorMessage.FILE_IO);
         }
     }
 }

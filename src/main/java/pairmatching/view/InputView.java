@@ -2,6 +2,9 @@ package pairmatching.view;
 
 import static camp.nextstep.edu.missionutils.Console.readLine;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 import pairmatching.exception.CustomException;
 import pairmatching.exception.ErrorMessage;
 
@@ -18,9 +21,13 @@ public class InputView {
         return input;
     }
 
+    public List<String> getCourseLevelMission() {
+        return Arrays.stream(readLine().split(", ", -1)).collect(Collectors.toList());
+    }
+
     private void validateFunctionType(final String input) {
         if (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("Q")) {
-            throw CustomException.from(ErrorMessage.UNVALID_FUNCTION_TYPE_EXCEPTION);
+            throw CustomException.from(ErrorMessage.UNVALID_FUNCTION_TYPE);
         }
     }
 }
