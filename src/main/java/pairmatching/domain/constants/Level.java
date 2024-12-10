@@ -30,5 +30,12 @@ public enum Level {
     public List<MissionMatching> getMissions() {
         return missions;
     }
+
+    public static void resetEveryMatchings() {
+        for (Level level : values()) {
+            List<MissionMatching> missions = level.getMissions();
+            missions.stream().forEach(MissionMatching::resetMatchings);
+        }
+    }
 }
 

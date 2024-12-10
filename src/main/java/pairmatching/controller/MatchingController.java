@@ -5,6 +5,7 @@ import static pairmatching.controller.ConfigController.configCrews;
 import java.util.List;
 import pairmatching.domain.Crews;
 import pairmatching.domain.constants.CourseLevelMission;
+import pairmatching.domain.constants.Level;
 import pairmatching.exception.CustomException;
 import pairmatching.exception.ErrorMessage;
 import pairmatching.view.InputView;
@@ -71,6 +72,6 @@ public class MatchingController {
         if (!functionType.equals("3")) {
             return;
         }
-        // 모든 미션
+        Level.resetEveryMatchings(); // 모든 미션 초기화
     }
 }

@@ -26,6 +26,10 @@ public class MissionMatching { // 미션 마다 가지고 있는 매칭 결과 -
         return matchings.isEmpty();
     }
 
+    public void resetMatchings() {
+        matchings.clear();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
