@@ -1,13 +1,10 @@
-package pairmatching.domain.constants;
+package pairmatching.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import pairmatching.domain.Crew;
-import pairmatching.domain.Crews;
-import pairmatching.domain.MissionMatching;
+import pairmatching.domain.constants.Course;
+import pairmatching.domain.constants.Level;
 import pairmatching.exception.CustomException;
 import pairmatching.exception.ErrorMessage;
 
@@ -43,9 +40,9 @@ public class CourseLevelMission {
         mission.resetMatchings(); // 매칭 초기화
         while (true) { // 새로운 매칭 제조
             List<String> crewNames = crews.getCrewNamesBy(course), shuffle = Randoms.shuffle(crewNames);
-            List<Set<Crew>> matchings = new ArrayList<>();
+            List<List<Crew>> matchings = new ArrayList<>();
             for (int i = 2; i <= shuffle.size(); i += 2) {
-                Set<Crew> matching = new HashSet<>();
+                List<Crew> matching = new ArrayList<>();
                 matching.add(crews.getCrewBy(course, shuffle.get(i - 2)));
                 matching.add(crews.getCrewBy(course, shuffle.get(i - 1)));
                 if (crewNames.size() % 2 == 1 && i == crewNames.size() - 1) {
@@ -61,7 +58,7 @@ public class CourseLevelMission {
         }
     }
 
-    private boolean isDuplicated(List<Set<Crew>> matchings) {
+    private boolean isDuplicated(List<List<Crew>> matchings) {
         for (MissionMatching missionMatching : missions) {
             if (missionMatching.getMissionName().equals(mission.getMissionName())) {
                 continue; // 같은 건 할 필요 없다

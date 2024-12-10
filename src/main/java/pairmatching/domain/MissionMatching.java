@@ -2,12 +2,11 @@ package pairmatching.domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class MissionMatching { // 미션 마다 가지고 있는 매칭 결과 -> enum에 박을 것임.
     private final String missionName;
-    private List<Set<Crew>> matchings;
+    private List<List<Crew>> matchings;
 
     public static MissionMatching of(String missionName) {
         return new MissionMatching(missionName);
@@ -30,23 +29,23 @@ public class MissionMatching { // 미션 마다 가지고 있는 매칭 결과 -
         matchings.clear();
     }
 
-    public void setMatchings(List<Set<Crew>> matchings) {
+    public void setMatchings(List<List<Crew>> matchings) {
         this.matchings = matchings;
     }
 
-    public boolean isDuplicated(List<Set<Crew>> matchings) {
-        for (Set<Crew> set1 : this.matchings) {
-            if (anyOnceMatched(matchings, set1)) {
+    public boolean isDuplicated(List<List<Crew>> matchings) {
+        for (List<Crew> otherMatchings : this.matchings) {
+            if (anyOnceMatched(matchings, otherMatchings)) {
                 return true;
             }
         }
         return false;
     }
 
-    private static boolean anyOnceMatched(List<Set<Crew>> matchings, Set<Crew> set1) {
+    private static boolean anyOnceMatched(List<List<Crew>> matchings, List<Crew> otherMatching) {
         long count = 0;
-        for (Set<Crew> set2 : matchings) {
-            count = set1.stream().filter(crew -> set2.contains(crew)).count();
+        for (List<Crew> matching : matchings) {
+            count = otherMatching.stream().filter(matching::contains).count();
             if (count >= 2) {
                 return true;
             }
@@ -57,8 +56,8 @@ public class MissionMatching { // 미션 마다 가지고 있는 매칭 결과 -
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        for (Set<Crew> set : matchings) {
-            String pair = set.stream().map(Crew::getName).collect(Collectors.joining(" : "));
+        for (List<Crew> crews : matchings) {
+            String pair = crews.stream().map(Crew::getName).collect(Collectors.joining(" : "));
             sb.append(pair).append("\n");
         }
         return sb.toString();

@@ -19,4 +19,8 @@ public class OutputView {
         System.out.println("페어 매칭 결과입니다.");
         System.out.println(missionMatching.toString());
     }
+
+    public void printReset() {
+        System.out.println("\n초기화 되었습니다.");
+    }
 }
