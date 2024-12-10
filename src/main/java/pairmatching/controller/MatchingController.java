@@ -18,6 +18,12 @@ public class MatchingController {
     }
 
     public void run() {
-
+        while (true) {
+            String functionType = inputView.getFunctionType();
+            if (functionType.equals("Q")) {
+                break;
+            }
+            
+        }
     }
 }
