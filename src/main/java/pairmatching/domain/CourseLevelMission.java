@@ -39,23 +39,28 @@ public class CourseLevelMission {
     public void match(Crews crews) {
         mission.resetMatchings(); // 매칭 초기화
         while (true) { // 새로운 매칭 제조
-            List<String> crewNames = crews.getCrewNamesBy(course), shuffle = Randoms.shuffle(crewNames);
-            List<List<Crew>> matchings = new ArrayList<>();
-            for (int i = 2; i <= shuffle.size(); i += 2) {
-                List<Crew> matching = new ArrayList<>();
-                matching.add(crews.getCrewBy(course, shuffle.get(i - 2)));
-                matching.add(crews.getCrewBy(course, shuffle.get(i - 1)));
-                if (crewNames.size() % 2 == 1 && i == crewNames.size() - 1) {
-                    matching.add(crews.getCrewBy(course, shuffle.get(i)));
-                }
-                matchings.add(matching);
-            }
+            List<List<Crew>> matchings = getMatchingsOn(crews);
             if (isDuplicated(matchings)) { // 유효성 검증
                 continue;
             }
             mission.setMatchings(matchings);
             break;
         }
+    }
+
+    private List<List<Crew>> getMatchingsOn(Crews crews) {
+        List<String> crewNames = crews.getCrewNamesBy(course), shuffle = Randoms.shuffle(crewNames);
+        List<List<Crew>> matchings = new ArrayList<>();
+        for (int i = 2; i <= shuffle.size(); i += 2) {
+            List<Crew> matching = new ArrayList<>();
+            matching.add(crews.getCrewBy(course, shuffle.get(i - 2)));
+            matching.add(crews.getCrewBy(course, shuffle.get(i - 1)));
+            if (crewNames.size() % 2 == 1 && i == crewNames.size() - 1) {
+                matching.add(crews.getCrewBy(course, shuffle.get(i)));
+            }
+            matchings.add(matching);
+        }
+        return matchings;
     }
 
     private boolean isDuplicated(List<List<Crew>> matchings) {

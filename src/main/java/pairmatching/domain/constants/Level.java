@@ -21,6 +21,10 @@ public enum Level {
         this.missions = missions;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public static Level getLevelBy(String name) {
         return Arrays.stream(values()).filter(level -> level.name.equals(name)).findFirst()
                 .orElseThrow(() -> CustomException.from(
