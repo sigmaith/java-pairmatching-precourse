@@ -25,6 +25,19 @@ public class InputView {
         return Arrays.stream(readLine().split(", ", -1)).collect(Collectors.toList());
     }
 
+    public String getRematch() {
+        System.out.println("매칭 정보가 있습니다. 다시 매칭하시겠습니까?\\n네 | 아니오");
+        String input = readLine();
+        validateYesOrNo(input);
+        return input;
+    }
+
+    private void validateYesOrNo(final String input) {
+        if (!input.equals("네") && !input.equals("아니오")) {
+            throw CustomException.from(ErrorMessage.UNVALID_ANSWER_INPUT);
+        }
+    }
+
     private void validateFunctionType(final String input) {
         if (!input.equals("1") && !input.equals("2") && !input.equals("3") && !input.equals("Q")) {
             throw CustomException.from(ErrorMessage.UNVALID_FUNCTION_TYPE);

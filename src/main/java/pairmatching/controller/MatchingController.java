@@ -47,16 +47,6 @@ public class MatchingController {
         }
     }
 
-    public void match(String functionType, CourseLevelMission CLM) { // 매칭
-        if (!functionType.equals("1")) {
-            return;
-        }
-        outputView.printCourseLevelMission(); // TODO: 이거 제대로 출력하기
-        // 이전 매칭 기록 존재 no-> 다시 input
-        // 처음 매칭 or 재매칭 -> 매칭하고 return
-
-    }
-
     public void select(String functionType, CourseLevelMission CLM) {  // 조회
         if (!functionType.equals("2")) {
             return;
@@ -73,5 +63,23 @@ public class MatchingController {
             return;
         }
         Level.resetEveryMatchings(); // 모든 미션 초기화
+    }
+
+    public void match(String functionType, CourseLevelMission CLM) { // 매칭
+        if (!functionType.equals("1")) {
+            return;
+        }
+        outputView.printCourseLevelMission(); // TODO: 이거 제대로 출력하기
+        if (!CLM.isMissionEmptyMatching() && !rematch()) { // 이전 매칭 기록 존재 no-> 다시 input
+            List<String> clm = inputView.getCourseLevelMission();
+            CourseLevelMission newCLM = CourseLevelMission.from(clm.get(0), clm.get(1), clm.get(2));
+            match(functionType, newCLM);
+        }
+        // 처음 매칭 or 재매칭 -> 매칭하고 return
+    }
+
+    private boolean rematch() {
+        String input = inputView.getRematch();
+        return input.equals("네");
     }
 }
