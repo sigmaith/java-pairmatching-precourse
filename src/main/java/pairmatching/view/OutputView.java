@@ -20,8 +20,7 @@ public class OutputView {
         StringBuilder sb = new StringBuilder();
         Arrays.stream(Level.values())
                 .forEach(level -> sb.append("  - ").append(level.getName()).append(": ")
-                        .append(level.getMissions().stream().map(MissionMatching::getMissionName).collect(
-                                Collectors.joining(" | "))).append("\n"));
+                        .append(level.getMissionNames().stream().collect(Collectors.joining(" | "))).append("\n"));
         System.out.print(sb);
         System.out.print(SUFFIX);
     }

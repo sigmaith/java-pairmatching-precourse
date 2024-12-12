@@ -3,6 +3,7 @@ package pairmatching.domain;
 import camp.nextstep.edu.missionutils.Randoms;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import pairmatching.domain.constants.Course;
 import pairmatching.domain.constants.Level;
 import pairmatching.exception.CustomException;
@@ -21,7 +22,8 @@ public class CourseLevelMission {
     private CourseLevelMission(String course, String level, String mission) {
         this.course = Course.getCourseBy(course);
         this.level = Level.getLevelBy(level);
-        this.missions = this.level.getMissions();
+        this.missions = this.level.getMissionNames().stream().map(MissionManager::getMission)
+                .collect(Collectors.toList());
         this.mission = this.missions.stream()
                 .filter(missionMatching -> missionMatching.getMissionName().equals(mission)).findFirst()
                 .orElseThrow(() -> CustomException.from(

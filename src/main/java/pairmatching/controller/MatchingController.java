@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Supplier;
 import pairmatching.domain.CourseLevelMission;
 import pairmatching.domain.Crews;
-import pairmatching.domain.constants.Level;
+import pairmatching.domain.MissionManager;
 import pairmatching.exception.CustomException;
 import pairmatching.exception.ErrorMessage;
 import pairmatching.view.InputView;
@@ -21,6 +21,7 @@ public class MatchingController {
         this.inputView = inputView;
         this.outputView = outputView;
         this.crews = configCrews();
+        MissionManager.initialize();
     }
 
     public void run() {
@@ -70,7 +71,7 @@ public class MatchingController {
         if (!functionType.equals("3")) {
             return;
         }
-        Level.resetEveryMatchings(); // 모든 미션 초기화
+        MissionManager.resetAllMatchings(); // 모든 미션 초기화
         outputView.printReset();
     }
 

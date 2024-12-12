@@ -8,7 +8,7 @@ public class MissionMatching { // 미션 마다 가지고 있는 매칭 결과 -
     private final String missionName;
     private List<List<Crew>> matchings;
 
-    public static MissionMatching of(String missionName) {
+    public static MissionMatching from(String missionName) {
         return new MissionMatching(missionName);
     }
 

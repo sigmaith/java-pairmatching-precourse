@@ -2,21 +2,20 @@ package pairmatching.domain.constants;
 
 import java.util.Arrays;
 import java.util.List;
-import pairmatching.domain.MissionMatching;
 import pairmatching.exception.CustomException;
 import pairmatching.exception.ErrorMessage;
 
 public enum Level {
-    LEVEL1("레벨1", Arrays.asList(MissionMatching.of("자동차경주"), MissionMatching.of("로또"), MissionMatching.of("숫자야구게임"))),
-    LEVEL2("레벨2", Arrays.asList(MissionMatching.of("장바구니"), MissionMatching.of("결제"), MissionMatching.of("지하철노선도"))),
+    LEVEL1("레벨1", Arrays.asList("자동차경주", "로또", "숫자야구게임")),
+    LEVEL2("레벨2", Arrays.asList("장바구니", "결제", "지하철노선도")),
     LEVEL3("레벨3", Arrays.asList()),
-    LEVEL4("레벨4", Arrays.asList(MissionMatching.of("성능개선"), MissionMatching.of("배포"))),
+    LEVEL4("레벨4", Arrays.asList("성능개선", "배포")),
     LEVEL5("레벨5", Arrays.asList());
 
     private final String name;
-    private final List<MissionMatching> missions;
+    private final List<String> missions;
 
-    Level(String name, List<MissionMatching> missions) {
+    Level(String name, List<String> missions) {
         this.name = name;
         this.missions = missions;
     }
@@ -31,15 +30,8 @@ public enum Level {
                         ErrorMessage.UNVALID_LEVEL_NAME));
     }
 
-    public List<MissionMatching> getMissions() {
+    public List<String> getMissionNames() {
         return missions;
-    }
-
-    public static void resetEveryMatchings() {
-        for (Level level : values()) {
-            List<MissionMatching> missions = level.getMissions();
-            missions.stream().forEach(MissionMatching::resetMatchings);
-        }
     }
 }
 
